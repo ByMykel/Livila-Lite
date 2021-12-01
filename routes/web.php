@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\MovieController;
+use App\Http\Controllers\WatchController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -24,6 +27,10 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+Route::get('/movies', [MovieController::class, 'index'])->name('movies');
+Route::get('/movies/{page}', [MovieController::class, 'movies'])->name('movies.page');
+
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/liked', [LikeController::class, 'index'])->name('liked');
+    Route::get('/watched', [WatchController::class, 'index'])->name('watched');
+});
