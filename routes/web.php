@@ -27,8 +27,12 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/movies', [MovieController::class, 'index'])->name('movies');
-Route::get('/movies/{page}', [MovieController::class, 'movies'])->name('movies.page');
+Route::prefix('movies')->group(function () {
+    Route::get('/', [MovieController::class, 'index'])->name('movies');
+    Route::post('/{id}/like', [LikeController::class, 'handleLike'])->name('movies.like');
+    Route::get('/page/{page}', [MovieController::class, 'movies'])->name('movies.page');
+});
+
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/liked', [LikeController::class, 'index'])->name('liked');

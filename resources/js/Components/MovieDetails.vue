@@ -16,10 +16,11 @@
         <div class="grid grid-cols-10 py-3">
             <p class="col-span-9 text-lg">{{ getMovieData("title") }}</p>
             <div class="flex items-center justify-end col-span-1">
-                <button>
+                <button @click="handleLike()">
                     <HeroIconsOutline
                         name="heart"
                         class="block w-6 h-6 text-white"
+                        :class="{ 'text-red-500': getMovieData('liked') }"
                     />
                 </button>
             </div>
@@ -87,6 +88,22 @@ export default defineComponent({
                 return "";
             }
             return this.getSelectedMovie[data];
+        },
+        handleLike() {
+            this.$inertia.post(
+                route("movies.like", this.getSelectedMovie.id),
+                {},
+                {
+                    preserveState: true,
+                    preserveScroll: true,
+                    resetOnSuccess: false,
+                }
+            );
+
+            this.selectMovie({
+                ...this.getSelectedMovie,
+                liked: !this.getSelectedMovie.liked,
+            });
         },
     },
 });
