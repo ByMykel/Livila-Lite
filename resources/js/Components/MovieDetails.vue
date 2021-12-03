@@ -13,8 +13,16 @@
             </button>
         </div>
         <img class="block object-cover rounded-md" :src="backdrop" alt="" />
-        <div class="py-3">
-            <p class="text-lg">{{ getMovieData('title') }}</p>
+        <div class="grid grid-cols-10 py-3">
+            <p class="col-span-9 text-lg">{{ getMovieData("title") }}</p>
+            <div class="flex items-center justify-end col-span-1">
+                <button>
+                    <HeroIconsOutline
+                        name="heart"
+                        class="block w-6 h-6 text-white"
+                    />
+                </button>
+            </div>
         </div>
         <div class="py-3 text-base text-gray-400">
             <div class="py-2 text-lg text-white border-b border-black-300">
@@ -33,7 +41,7 @@
             <div class="py-2 text-lg text-white border-b border-black-300">
                 <span>Overview</span>
             </div>
-            <p class="py-2">{{ getMovieData('overview') }}</p>
+            <p class="py-2">{{ getMovieData("overview") }}</p>
         </div>
     </div>
 </template>
@@ -79,7 +87,7 @@ export default defineComponent({
                 return "";
             }
             return this.getSelectedMovie[data];
-        }
+        },
     },
 });
 </script>
