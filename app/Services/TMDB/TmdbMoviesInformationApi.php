@@ -9,8 +9,6 @@ class TmdbMoviesInformationApi
 {
     public function getMovies($page = 1)
     {
-        $movies = [];
-
         $response = Http::get('https://api.themoviedb.org/3/discover/movie', [
             'api_key' => Config::get('services.tmdb.key'),
             'include_adult' => false,
@@ -31,6 +29,32 @@ class TmdbMoviesInformationApi
             $movies['results'] = array_merge($movies['results'], $response->json()['results']);
         }
 
-        return $movies;
+        return $movies ?? [];
+    }
+
+    public function getMovieById($id)
+    {
+        $response = Http::get('https://api.themoviedb.org/3/movie/' . $id, [
+            'api_key' => Config::get('services.tmdb.key'),
+        ]);
+
+        if ($response->ok()) {
+            $movie = $response->json();
+        }
+
+        return $movie ?? [];
+    }
+
+    public function getMoviesById($moviesIds)
+    {
+        foreach ($moviesIds as $id) {
+            $movie = $this->getMovieById($id);
+
+            if ($movie) {
+                $movies[] = $movie;
+            }
+        }
+
+        return $movies ?? [];
     }
 }

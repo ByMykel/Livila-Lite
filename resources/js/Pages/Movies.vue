@@ -14,7 +14,7 @@
                     grid-template-rows: repeat(auto-fill, minmax(95px, 1fr));
                 "
             >
-                <Movie v-for="movie in movies" :key="movie.id" :movie="movie" />
+                <Movie v-for="movie in movies_data" :key="movie.id" :movie="movie" />
             </div>
         </div>
     </app-layout>
@@ -24,6 +24,7 @@
 import { defineComponent } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Movie from "@/Components/Movie.vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
     components: {
@@ -38,8 +39,23 @@ export default defineComponent({
 
     data() {
         return {
+            movies_data: this.movies,
             page: 1,
         };
+    },
+
+    computed: {
+        ...mapGetters("movie", ["getSelectedMovie"]),
+    },
+
+    watch: {
+        movies() {
+            this.movies_data.map(movie => {
+                if (movie.id === this.getSelectedMovie.id) {
+                    Object.assign(movie, this.getSelectedMovie);
+                }
+            })
+        }
     },
 
     methods: {
@@ -53,14 +69,14 @@ export default defineComponent({
                 axios
                     .get(route("movies.page", ++this.page))
                     .then((response) =>
-                        this.movies.push(...response.data.results)
+                        this.movies_data.push(...response.data.results)
                     );
             }
         },
     },
 
     mounted() {
-        window.addEventListener("scroll", () => this.getMoreMovies(), true);
+        window.addEventListener("scroll", this.getMoreMovies, true);
     },
 });
 </script>

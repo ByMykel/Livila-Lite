@@ -56,6 +56,7 @@ export default defineComponent({
     components: {
         HeroIconsOutline,
     },
+
     computed: {
         ...mapGetters("movie", ["getSelectedMovie"]),
         informations() {
@@ -81,6 +82,7 @@ export default defineComponent({
             );
         },
     },
+    
     methods: {
         ...mapActions("movie", ["selectMovie"]),
         getMovieData(data) {

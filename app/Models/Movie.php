@@ -11,6 +11,15 @@ class Movie extends Model
 {
     use HasFactory;
 
+    public function getLikedMoviesIds(User $user)
+    {
+        return DB::table('likes_movies')
+            ->where('user_id', $user->id)
+            ->latest()
+            ->select('movie_id')
+            ->paginate(40);
+    }
+
     public function isLiked($id)
     {
         return DB::table('likes_movies')

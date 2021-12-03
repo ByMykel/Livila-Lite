@@ -36,5 +36,6 @@ Route::prefix('movies')->group(function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/liked', [LikeController::class, 'index'])->name('liked');
+    Route::get('/liked/page', [LikeController::class, 'movies'])->name('liked.page');
     Route::get('/watched', [WatchController::class, 'index'])->name('watched');
 });
