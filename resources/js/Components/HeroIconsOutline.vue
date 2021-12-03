@@ -36,6 +36,22 @@
             stroke-width="2"
             d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
         ></path>
+        <!-- Icon: arrow-left -->
+        <path
+            v-if="name === 'arrow-left'"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M10 19l-7-7m0 0l7-7m-7 7h18"
+        ></path>
+        <!-- Icon: x -->
+        <path
+            v-if="name === 'x'"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+        ></path>
     </svg>
 </template>
 
