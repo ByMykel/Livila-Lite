@@ -72,7 +72,7 @@ export default defineComponent({
             ];
         },
         backdrop() {
-            if (this.getSelectedMovie === null) {
+            if (this.getSelectedMovie?.backdrop_path == null) {
                 return "";
             }
 
@@ -82,7 +82,7 @@ export default defineComponent({
             );
         },
     },
-    
+
     methods: {
         ...mapActions("movie", ["selectMovie"]),
         getMovieData(data) {

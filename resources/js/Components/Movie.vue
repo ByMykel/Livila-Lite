@@ -1,5 +1,10 @@
 <template>
-    <div @click="selectMovie(movie)">
+    <div
+        class="flex flex-col"
+        @click="selectMovie(movie)"
+        @keydown.enter="selectMovie(movie)"
+        @keydown.esc="selectMovie(null)"
+    >
         <div
             tabindex="0"
             class="
@@ -10,20 +15,27 @@
                 border-transparent border-2
                 focus:border-purple-300
                 outline-none
+                h-full
             "
             :class="{
                 'border-purple-500 focus:border-purple-500': isSelected(movie),
             }"
         >
             <img
-                class="block object-cover bg-gray-400 rounded-md cursor-pointer"
+                class="block object-cover h-full rounded-md cursor-pointer bg-black-300"
+                :class="{ 'animate-pulse': skeleton }"
                 :src="image(movie)"
+                @load="skeleton = false"
             />
         </div>
-        <p class="text-sm truncate px-0.5 text-white">{{ movie.title }}</p>
-        <p class="text-sm truncate px-0.5 text-white">
-            {{ movie.release_date }}
-        </p>
+        <div>
+            <p class="text-sm truncate px-0.5 text-white">
+                {{ movie.title }}
+            </p>
+            <p class="text-sm truncate px-0.5 text-white">
+                {{ movie.release_date }}
+            </p>
+        </div>
     </div>
 </template>
 
@@ -35,12 +47,24 @@ export default defineComponent({
     props: {
         movie: Object,
     },
+
+    data() {
+        return {
+            skeleton: true,
+        };
+    },
+
     computed: {
         ...mapGetters("movie", ["getSelectedMovie"]),
     },
+
     methods: {
         ...mapActions("movie", ["selectMovie"]),
         image(movie) {
+            if (movie.backdrop_path === null) {
+                return "";
+            }
+
             return "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
         },
         isSelected(movie) {
