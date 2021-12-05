@@ -8,11 +8,7 @@
                 <h3 class="text-2xl font-bold text-white">Movies</h3>
             </div>
             <div
-                class="grid w-full gap-0 p-4 px-5"
-                style="
-                    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                    grid-template-rows: repeat(auto-fill, minmax(95px, 1fr));
-                "
+                class="grid w-full gap-0 p-4 px-5 movies-grid-small md:movies-grid"
             >
                 <Movie v-for="movie in movies_data" :key="movie.id" :movie="movie" />
             </div>
@@ -46,6 +42,7 @@ export default defineComponent({
 
     computed: {
         ...mapGetters("movie", ["getSelectedMovie"]),
+        
     },
 
     watch: {

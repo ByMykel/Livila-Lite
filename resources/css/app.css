@@ -11,4 +11,16 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
+
+    @variants responsive {
+        .movies-grid {
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(95px, 1fr));
+        }
+
+        .movies-grid-small {
+            grid-template-columns: repeat(auto-fill, minmax(167px, 1fr));
+            grid-template-rows: repeat(auto-fill, minmax(95px, 1fr));
+        }
+    }
 }
