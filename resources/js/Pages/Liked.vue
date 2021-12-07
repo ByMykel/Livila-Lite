@@ -8,17 +8,25 @@
                 <h3 class="text-2xl font-bold text-white">Liked movies</h3>
             </div>
             <div
-                class="grid w-full gap-0 p-4 px-5"
-                style="
-                    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-                    grid-template-rows: repeat(auto-fill, minmax(95px, 1fr));
-                "
+                class="grid w-full gap-0 p-4 px-5 movies-grid-small md:movies-grid"
             >
                 <Movie
                     v-for="movie in movies_data"
                     :key="movie.id"
                     :movie="movie"
                 />
+            </div>
+            <div class="flex justify-center my-2" v-if="loading">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                    class="fill-current text-black-200 animate-spin"
+                >
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3z"></path>
+                </svg>
             </div>
         </div>
     </app-layout>
@@ -44,6 +52,7 @@ export default defineComponent({
         return {
             movies_data: this.movies,
             page: 1,
+            loading: false,
         };
     },
 
@@ -55,14 +64,26 @@ export default defineComponent({
                 movies.scrollHeight === movies.scrollTop + window.innerHeight;
 
             if (bottomOfWindow) {
-                axios.get(route("liked.page", {page: ++this.page})).then((response) => {
-                    if (!response.data.length) {
-                        window.removeEventListener("scroll", this.getMoreMovies, true);
-                        return;
-                    }
+                if (this.loading) return;
 
-                    this.movies_data.push(...response.data);
-                });
+                this.loading = true;
+
+                axios
+                    .get(route("liked.page", { page: ++this.page }))
+                    .then((response) => {
+                        if (!response.data.length) {
+                            window.removeEventListener(
+                                "scroll",
+                                this.getMoreMovies,
+                                true
+                            );
+                            this.loading = false;
+                            return;
+                        }
+
+                        this.loading = false;
+                        this.movies_data.push(...response.data);
+                    });
             }
         },
     },
