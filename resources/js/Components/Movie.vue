@@ -22,7 +22,7 @@
             }"
         >
             <img
-                class="block object-cover h-full rounded-md cursor-pointer bg-black-300"
+                class="block object-cover h-full rounded-md cursor-pointer  bg-black-300"
                 :class="{ 'animate-pulse': skeleton }"
                 :src="image(movie)"
                 @load="skeleton = false"
@@ -61,8 +61,8 @@ export default defineComponent({
     methods: {
         ...mapActions("movie", ["selectMovie"]),
         image(movie) {
-            if (movie.backdrop_path === null) {
-                return "";
+            if (movie.backdrop_path == null) {
+                return "images/placeholder.jpeg";
             }
 
             return "https://image.tmdb.org/t/p/w500" + movie.backdrop_path;
