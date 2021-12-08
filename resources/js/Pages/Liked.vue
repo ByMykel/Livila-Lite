@@ -8,7 +8,7 @@
                 <h3 class="text-2xl font-bold text-white">Liked movies</h3>
             </div>
             <div
-                class="grid w-full gap-0 p-4 px-5 movies-grid-small md:movies-grid"
+                class="grid w-full gap-1 p-4 px-5 movies-grid-small md:movies-grid"
             >
                 <Movie
                     v-for="movie in movies_data"
