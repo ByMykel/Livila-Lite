@@ -1,10 +1,5 @@
 <template>
-    <div
-        class="flex flex-col"
-        @click="selectMovie(movie)"
-        @keydown.enter="selectMovie(movie)"
-        @keydown.esc="selectMovie(null)"
-    >
+    <div class="flex flex-col">
         <div
             tabindex="0"
             class="
@@ -14,15 +9,20 @@
                 p-0.5
                 border-transparent border-2
                 focus:border-purple-300
+                hover:border-purple-300
                 outline-none
                 h-full
+                cursor-pointer
             "
             :class="{
                 'border-purple-500 focus:border-purple-500': isSelected(movie),
             }"
+            @click="selectMovie(movie)"
+            @keydown.enter="selectMovie(movie)"
+            @keydown.esc="selectMovie(null)"
         >
             <img
-                class="block object-cover h-full rounded-md cursor-pointer  bg-black-300"
+                class="block object-cover h-full rounded-md cursor-pointer pointer-events-none bg-black-300"
                 :class="{ 'animate-pulse': skeleton }"
                 :src="image(movie)"
                 @load="skeleton = false"
