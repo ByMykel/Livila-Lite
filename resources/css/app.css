@@ -12,6 +12,27 @@
         scrollbar-width: none;
     }
 
+    ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+        background: #121212;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        -webkit-border-radius: 6px;
+        border-radius: 6px;
+        background: #535353;
+    }
+
+    ::-webkit-scrollbar-thumb:window-inactive {
+        background: #535353;
+    }
+
     @variants responsive {
         .movies-grid {
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));

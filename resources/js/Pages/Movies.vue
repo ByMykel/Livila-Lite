@@ -2,7 +2,7 @@
     <app-layout title="Movies">
         <div
             ref="movies"
-            class="flex-1 w-full h-screen overflow-auto bg-black-400 no-scrollbar"
+            class="flex-1 w-full h-screen overflow-auto bg-black-400"
         >
             <div class="w-full px-5 pt-3">
                 <h3 class="text-2xl font-bold text-white">Movies</h3>
