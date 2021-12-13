@@ -1,5 +1,5 @@
 <template>
-    <div class="flex items-center w-full h-12 shadow bg-black-500 md:hidden">
+    <div class="z-50 flex items-center w-full h-12 shadow bg-black-500 md:hidden">
         <button class="h-full px-2.5 border-r border-black-400" @click="showSidebar = !showSidebar">
             <HeroIconsOutline name="menu-alt2" class="w-6 h-6 text-gray-300" />
         </button>
