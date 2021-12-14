@@ -1,7 +1,7 @@
 <template>
     <div class="px-4 pt-12 text-white md:pt-0 bg-black-400">
         <div class="flex items-center w-full py-3 md:justify-end">
-            <button @click="selectMovie(null)">
+            <button @click="hideMovie()">
                 <HeroIconsOutline
                     name="x"
                     class="hidden w-6 h-6 text-white md:block"
@@ -84,7 +84,7 @@ export default defineComponent({
     },
 
     methods: {
-        ...mapActions("movie", ["selectMovie"]),
+        ...mapActions("movie", ["selectMovie", "hideMovie"]),
         getMovieData(data) {
             if (this.getSelectedMovie === null) {
                 return "";

@@ -58,7 +58,7 @@ export default defineComponent({
     },
 
     computed: {
-        ...mapGetters("movie", ["getSelectedMovie"]),
+        ...mapGetters("movie", ["getSelectedMovie", "isShowing"]),
     },
 
     watch: {

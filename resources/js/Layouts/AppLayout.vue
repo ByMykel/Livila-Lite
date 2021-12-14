@@ -4,11 +4,11 @@
         <SidebarMobile />
         <slot></slot>
         <MovieDetails
-            v-show="getSelectedMovie != null"
+            v-show="isShowing"
             class="hidden h-screen overflow-auto overflow-x-hidden text-5xl border-l-2 border-black-300 md:block w-96 lg:w-114 2xl:w-122"
         />
         <MovieDetails
-            v-show="getSelectedMovie != null"
+            v-show="isShowing"
             class="fixed w-full h-screen overflow-auto overflow-x-hidden text-5xl md:hidden"
         />
     </div>
@@ -16,7 +16,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapGetters } from "vuex";
 import Sidebar from "@/Components/Sidebar.vue";
 import SidebarMobile from "@/Components/SidebarMobile.vue";
 import MovieDetails from "@/Components/MovieDetails.vue";
@@ -35,11 +35,7 @@ export default defineComponent({
     },
 
     computed: {
-        ...mapGetters("movie", ["getSelectedMovie"]),
-    },
-
-    methods: {
-        ...mapActions("movie", ["selectMovie"]),
+        ...mapGetters("movie", ["getSelectedMovie", "isShowing"]),
     },
 });
 </script>

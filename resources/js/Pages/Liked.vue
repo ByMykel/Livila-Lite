@@ -36,6 +36,7 @@
 import { defineComponent } from "vue";
 import AppLayout from "@/Layouts/AppLayout.vue";
 import Movie from "@/Components/Movie.vue";
+import { mapGetters } from "vuex";
 
 export default defineComponent({
     components: {
@@ -54,6 +55,10 @@ export default defineComponent({
             page: 1,
             loading: false,
         };
+    },
+
+    computed: {
+        ...mapGetters("movie", ["getSelectedMovie"]),
     },
 
     methods: {
