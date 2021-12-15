@@ -115,15 +115,7 @@ export default defineComponent({
             return movie.id === this.getSelectedMovie?.id;
         },
         handleLike() {
-            this.$inertia.post(
-                route("movies.like", this.movie.id),
-                {},
-                {
-                    preserveState: true,
-                    preserveScroll: true,
-                    resetOnSuccess: false,
-                }
-            );
+            axios.post(route("movies.like", this.movie.id));
 
             this.movie.liked = !this.movie.liked;
         },
