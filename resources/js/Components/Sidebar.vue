@@ -6,7 +6,12 @@
         <div class="w-full px-2" v-for="(link, index) in links" :key="index">
             <a
                 :href="route(link.route)"
-                class="block py-2 text-gray-300 rounded-md hover:text-white hover:bg-black-400"
+                class="block py-2 rounded-md"
+                :class="[
+                    route().current(link.route)
+                        ? 'bg-black-400 text-white'
+                        : 'text-gray-300 hover:text-white hover:bg-black-400',
+                ]"
             >
                 <div class="flex justify-center">
                     <HeroIconsOutline class="w-6 h-6" :name="link.icon" />
