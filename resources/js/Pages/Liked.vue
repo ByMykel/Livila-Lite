@@ -66,7 +66,7 @@ export default defineComponent({
             const { movies } = this.$refs;
 
             let bottomOfWindow =
-                movies.scrollHeight === movies.scrollTop + window.innerHeight;
+                movies.scrollHeight < movies.scrollTop + window.innerHeight + 200;
 
             if (bottomOfWindow) {
                 if (this.loading) return;

@@ -64,7 +64,7 @@ export default defineComponent({
     watch: {
         movies() {
             this.movies_data.map((movie) => {
-                if (movie.id === this.getSelectedMovie.id) {
+                if (movie.id === this.getSelectedMovie?.id) {
                     Object.assign(movie, this.getSelectedMovie);
                 }
             });
@@ -76,7 +76,9 @@ export default defineComponent({
             const { movies } = this.$refs;
 
             let bottomOfWindow =
-                movies.scrollHeight === movies.scrollTop + window.innerHeight;
+                movies.scrollHeight < movies.scrollTop + window.innerHeight + 200;
+
+            console.log(movies.scrollHeight, movies.scrollTop + window.innerHeight)
 
             if (bottomOfWindow) {
                 if (this.loading) return;
