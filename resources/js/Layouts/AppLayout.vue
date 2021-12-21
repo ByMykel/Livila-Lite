@@ -1,5 +1,5 @@
 <template>
-    <div class="fixed flex flex-col w-full h-screen md:flex-row">
+    <div class="flex flex-col w-full h-screen md:flex-row">
         <Sidebar class="hidden md:block" />
         <!-- <SidebarMobile /> -->
         <slot></slot>
