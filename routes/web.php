@@ -29,7 +29,7 @@ Route::get('/', function () {
 
 Route::prefix('movies')->group(function () {
     Route::get('/', [MovieController::class, 'index'])->name('movies');
-    Route::post('/{id}/like', [LikeController::class, 'handleLike'])->name('movies.like');
+    Route::post('/{id}/like', [LikeController::class, 'handleLike'])->name('movies.like')->middleware(['auth:sanctum', 'verified']);
     Route::get('/page/{page}', [MovieController::class, 'movies'])->name('movies.page');
 });
 

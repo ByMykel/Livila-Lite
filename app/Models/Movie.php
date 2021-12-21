@@ -23,7 +23,7 @@ class Movie extends Model
     public function isLiked($id)
     {
         return DB::table('likes_movies')
-            ->where('user_id', Auth::user()->id)
+            ->where('user_id', Auth::id())
             ->where('movie_id', $id)
             ->count() === 1;
     }
@@ -31,7 +31,7 @@ class Movie extends Model
     public function markAsLiked($id)
     {
         DB::table('likes_movies')->insert([
-            'user_id' => Auth::user()->id,
+            'user_id' => Auth::id(),
             'movie_id' => $id,
             'created_at' => NOW(),
             'updated_at' => NOW(),
@@ -41,7 +41,7 @@ class Movie extends Model
     public function unmarkAsLiked($id)
     {
         DB::table('likes_movies')
-            ->where('user_id', Auth::user()->id)
+            ->where('user_id', Auth::id())
             ->where('movie_id', $id)
             ->delete();
     }

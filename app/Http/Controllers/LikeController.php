@@ -40,8 +40,6 @@ class LikeController extends Controller
     {
         $moviesIds = $this->movie->getLikedMoviesIds(Auth::user());
 
-        // dd($moviesIds);
-
         $ids = array_map(function ($movie) {
             return $movie->movie_id;
         }, $moviesIds->items());
@@ -55,7 +53,5 @@ class LikeController extends Controller
     public function handleLike($id)
     {
         $this->movie->handleLike($id);
-
-        return redirect()->back();
     }
 }
