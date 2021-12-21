@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col w-full h-screen md:flex-row">
+    <div class="flex flex-col w-full full-height md:flex-row">
         <Sidebar class="hidden md:block" />
-        <!-- <SidebarMobile /> -->
+        <SidebarMobile />
         <slot></slot>
         <MovieDetails
             v-show="isShowing"
@@ -27,15 +27,37 @@ export default defineComponent({
         Sidebar,
         SidebarMobile,
         MovieDetails,
-        HeroIconsOutline
+        HeroIconsOutline,
     },
 
     props: {
         title: String,
     },
 
+    mounted() {
+        this.setDocHeight();
+
+        addEventListener("resize", this.setDocHeight);
+        addEventListener("orientationchange", this.setDocHeight);
+    },
+
     computed: {
         ...mapGetters("movie", ["getSelectedMovie", "isShowing"]),
     },
+
+    methods: {
+        setDocHeight() {
+            document.documentElement.style.setProperty(
+                "--vh",
+                `${window.innerHeight / 100}px`
+            );
+        },
+    },
 });
 </script>
+
+<style scoped>
+.full-height {
+    height: calc(var(--vh, 1vh) * 100);
+}
+</style>
