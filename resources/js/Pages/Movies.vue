@@ -78,8 +78,6 @@ export default defineComponent({
             let bottomOfWindow =
                 movies.scrollHeight < movies.scrollTop + window.innerHeight + 200;
 
-            console.log(movies.scrollHeight, movies.scrollTop + window.innerHeight)
-
             if (bottomOfWindow) {
                 if (this.loading) return;
 
