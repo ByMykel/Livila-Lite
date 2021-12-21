@@ -5,11 +5,11 @@
         <slot></slot>
         <MovieDetails
             v-show="isShowing"
-            class="hidden h-screen overflow-auto overflow-x-hidden text-5xl border-l-2 border-black-300 md:block w-96 lg:w-114 2xl:w-122"
+            class="hidden overflow-auto overflow-x-hidden text-5xl border-l-2 full-height border-black-300 md:block w-96 lg:w-114 2xl:w-122"
         />
         <MovieDetails
             v-show="isShowing"
-            class="fixed w-full h-screen overflow-auto overflow-x-hidden text-5xl md:hidden"
+            class="fixed w-full overflow-auto overflow-x-hidden text-5xl full-height md:hidden"
         />
     </div>
 </template>
