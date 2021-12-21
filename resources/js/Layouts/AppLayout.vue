@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-col w-full h-screen md:flex-row">
+    <div class="fixed flex flex-col w-full h-screen md:flex-row">
         <Sidebar class="hidden md:block" />
-        <SidebarMobile />
+        <!-- <SidebarMobile /> -->
         <slot></slot>
         <MovieDetails
             v-show="isShowing"
