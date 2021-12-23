@@ -9,7 +9,7 @@
         />
         <MovieDetails
             v-show="isShowing"
-            class="fixed w-full overflow-auto overflow-x-hidden text-5xl full-height md:hidden"
+            class="fixed z-50 w-full overflow-auto overflow-x-hidden text-5xl full-height md:hidden"
         />
     </div>
 </template>
