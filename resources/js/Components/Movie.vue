@@ -62,7 +62,7 @@
             />
             <img
                 class="block object-cover h-full rounded-md cursor-pointer bg-black-300"
-                :class="{ 'hidden': skeleton }"
+                :class="{ hidden: skeleton }"
                 :src="image(movie)"
                 @load="skeleton = false"
             />
@@ -82,6 +82,7 @@
 import { defineComponent } from "vue";
 import { mapActions, mapGetters } from "vuex";
 import HeroIconsOutline from "@/Components/HeroIconsOutline.vue";
+import { Inertia } from "@inertiajs/inertia";
 
 export default defineComponent({
     props: {
@@ -128,7 +129,15 @@ export default defineComponent({
             return movie.id === this.getSelectedMovie?.id;
         },
         handleLike() {
-            axios.post(route("movies.like", this.movie.id));
+            axios
+                .post(route("movies.like", this.movie.id))
+                .catch(function (error) {
+                    if (error.response) {
+                        if (error.response.status === 401) {
+                            Inertia.visit(route("login"));
+                        }
+                    }
+                });
 
             this.movie.liked = !this.movie.liked;
         },
