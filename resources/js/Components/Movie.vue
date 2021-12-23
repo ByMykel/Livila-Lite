@@ -36,6 +36,7 @@
                         sm:h-6
                         h-5
                         bg-red-500
+                        z-10
                     "
                 >
                     <transition
@@ -55,8 +56,13 @@
                 </div>
             </transition>
             <img
+                v-if="skeleton"
+                class="block object-cover h-full rounded-md cursor-pointer bg-black-300 animate-pulse"
+                src="images/placeholder.jpeg"
+            />
+            <img
                 class="block object-cover h-full rounded-md cursor-pointer bg-black-300"
-                :class="{ 'animate-pulse': skeleton }"
+                :class="{ 'hidden': skeleton }"
                 :src="image(movie)"
                 @load="skeleton = false"
             />
