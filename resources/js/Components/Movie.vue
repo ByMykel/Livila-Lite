@@ -65,8 +65,8 @@
             <p class="text-sm truncate px-0.5 text-white">
                 {{ movie.title }}
             </p>
-            <p class="text-sm truncate px-0.5 text-white">
-                {{ movie.release_date }}
+            <p class="text-sm truncate px-0.5 text-gray-400">
+                {{ releaseDate }}
             </p>
         </div>
     </div>
@@ -96,6 +96,13 @@ export default defineComponent({
 
     computed: {
         ...mapGetters("movie", ["getSelectedMovie"]),
+        releaseDate() {
+            if (!this.movie.release_date) {
+                return "UNKNOWN";
+            }
+
+            return new Date(this.movie.release_date).getFullYear();
+        },
     },
 
     methods: {
