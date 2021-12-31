@@ -4,11 +4,8 @@
             ref="movies"
             class="flex-1 w-full h-screen overflow-auto bg-black-400"
         >
-            <div class="w-full px-5 pt-3">
-                <h3 class="text-2xl font-bold text-white">Movies</h3>
-            </div>
             <div
-                class="grid w-full gap-1 p-4 px-5 movies-grid-small md:movies-grid"
+                class="grid w-full gap-1 p-4 px-5 mx-auto movies-grid-small md:movies-grid max-w-7xl"
             >
                 <Movie
                     v-for="movie in movies_data"
