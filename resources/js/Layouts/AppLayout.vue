@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col w-full full-height md:flex-row">
-        <Sidebar class="hidden md:block" />
+        <Sidebar />
         <SidebarMobile />
         <slot></slot>
         <MovieDetails

@@ -1,5 +1,5 @@
 <template>
-    <div class="h-screen space-y-0.5 bg-black-500 w-28">
+    <div class="h-screen space-y-0.5 bg-black-500 w-28 hidden md:block">
         <div class="flex justify-center my-6">
             <img class="w-10" src="/images/logo.svg" />
         </div>
