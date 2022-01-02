@@ -18,24 +18,19 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+Route::get('/', [MovieController::class, 'index'])->name('movies');
 
 Route::prefix('movies')->group(function () {
-    Route::get('/', [MovieController::class, 'index'])->name('movies');
     Route::post('/{id}/like', [LikeController::class, 'handleLike'])->name('movies.like')->middleware(['auth:sanctum', 'verified']);
     Route::get('/page/{page}', [MovieController::class, 'movies'])->name('movies.page');
 });
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::get('/liked', [LikeController::class, 'index'])->name('liked');
-    Route::get('/liked/page', [LikeController::class, 'movies'])->name('liked.page');
-    Route::get('/watched', [WatchController::class, 'index'])->name('watched');
+    Route::prefix('liked')->group(function () {
+        Route::get('/', [LikeController::class, 'index'])->name('liked');
+        Route::get('/page', [LikeController::class, 'movies'])->name('liked.page');
+    });
+
+    // Route::get('/watched', [WatchController::class, 'index'])->name('watched');
 });

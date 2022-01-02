@@ -22,8 +22,6 @@ class LikeController extends Controller
     {
         $moviesIds = $this->movie->getLikedMoviesIds(Auth::user());
 
-        // dd($moviesIds);
-
         $ids = array_map(function ($movie) {
             return $movie->movie_id;
         }, $moviesIds->items());
