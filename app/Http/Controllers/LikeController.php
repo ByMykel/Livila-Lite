@@ -54,5 +54,7 @@ class LikeController extends Controller
     public function handleLike($id)
     {
         $this->movie->handleLike($id);
+
+        return redirect()->back();
     }
 }

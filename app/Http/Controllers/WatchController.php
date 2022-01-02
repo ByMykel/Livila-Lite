@@ -54,5 +54,7 @@ class WatchController extends Controller
     public function handleWatch($id)
     {
         $this->movie->handleWatch($id);
+
+        return redirect()->back();
     }
 }
