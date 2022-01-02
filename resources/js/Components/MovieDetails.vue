@@ -14,13 +14,22 @@
         </div>
         <img class="block object-cover rounded-md" :src="backdrop" alt="" />
         <div class="grid grid-cols-10 py-3">
-            <p class="col-span-9 text-lg">{{ getMovieData("title") }}</p>
+            <p class="col-span-8 text-lg">{{ getMovieData("title") }}</p>
             <div class="flex items-center justify-end col-span-1">
                 <button @click="handleLike()">
                     <HeroIconsOutline
                         name="heart"
                         class="block w-6 h-6 text-white"
                         :class="{ 'text-red-500': getMovieData('liked') }"
+                    />
+                </button>
+            </div>
+            <div class="flex items-center justify-end col-span-1">
+                <button @click="handleWatch()">
+                    <HeroIconsOutline
+                        name="eye"
+                        class="block w-6 h-6 text-white"
+                        :class="{ 'text-blue-500': getMovieData('watched') }"
                     />
                 </button>
             </div>
@@ -97,6 +106,14 @@ export default defineComponent({
             this.selectMovie({
                 ...this.getSelectedMovie,
                 liked: !this.getSelectedMovie.liked,
+            });
+        },
+        handleWatch() {
+            axios.post(route("movies.watch", this.getSelectedMovie.id));
+
+            this.selectMovie({
+                ...this.getSelectedMovie,
+                watched: !this.getSelectedMovie.watched,
             });
         },
     },

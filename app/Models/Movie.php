@@ -70,4 +70,64 @@ class Movie extends Model
 
         return $movies;
     }
+
+    public function getWatchedMoviesIds(User $user)
+    {
+        return DB::table('movies_watched')
+            ->where('user_id', $user->id)
+            ->latest()
+            ->select('movie_id')
+            ->paginate(40);
+    }
+
+    public function isWatched($id)
+    {
+        return DB::table('movies_watched')
+            ->where('user_id', Auth::id())
+            ->where('movie_id', $id)
+            ->count() === 1;
+    }
+
+    public function markAsWatched($id)
+    {
+        DB::table('movies_watched')->insert([
+            'user_id' => Auth::id(),
+            'movie_id' => $id,
+            'created_at' => NOW(),
+            'updated_at' => NOW(),
+        ]);
+    }
+
+    public function unmarkAsWatched($id)
+    {
+        DB::table('movies_watched')
+            ->where('user_id', Auth::id())
+            ->where('movie_id', $id)
+            ->delete();
+    }
+
+    public function handleWatch($id)
+    {
+        $isLiked = $this->isWatched($id);
+
+        if ($isLiked) {
+            $this->unmarkAsWatched($id);
+            return;
+        }
+
+        $this->markAsWatched($id);
+    }
+
+    public function markWatchedMovies($movies)
+    {
+        if (!Auth::user()) {
+            return $movies;
+        }
+
+        foreach ($movies as $index => $movie) {
+            $movies[$index]['watched'] = $this->isWatched($movie['id']);
+        }
+
+        return $movies;
+    }
 }

@@ -10,6 +10,7 @@ use Inertia\Inertia;
 
 class LikeController extends Controller
 {
+    protected $tmdbApi;
     protected $movie;
 
     public function __construct(TmdbMoviesInformationApi $tmdbApi, Movie $movie)
@@ -28,6 +29,7 @@ class LikeController extends Controller
 
         $movies = $this->tmdbApi->getMoviesById($ids);
         $movies = $this->movie->markLikedMovies($movies);
+        $movies = $this->movie->markWatchedMovies($movies);
 
         return Inertia::render('Liked', [
             'movies' => $movies
@@ -44,6 +46,7 @@ class LikeController extends Controller
 
         $movies = $this->tmdbApi->getMoviesById($ids);
         $movies = $this->movie->markLikedMovies($movies);
+        $movies = $this->movie->markWatchedMovies($movies);
 
         return $movies;
     }

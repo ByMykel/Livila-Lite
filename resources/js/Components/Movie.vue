@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col">
+    <div class="flex flex-col" :class="{ 'opacity-20': movie.watched }">
         <div
             tabindex="0"
             class="

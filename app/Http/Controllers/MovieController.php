@@ -16,16 +16,13 @@ class MovieController extends Controller
         $this->tmdbApi = $tmdbApi;
         $this->movie = $movie;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $movies = $this->tmdbApi->getMovies();
 
         $movies['results'] = $this->movie->markLikedMovies($movies['results']);
+        $movies['results'] = $this->movie->markWatchedMovies($movies['results']);
 
         return Inertia::render('Movies', [
             'movies' => $movies['results']
@@ -37,6 +34,7 @@ class MovieController extends Controller
         $movies = $this->tmdbApi->getMovies($page);
 
         $movies['results'] = $this->movie->markLikedMovies($movies['results']);
+        $movies['results'] = $this->movie->markWatchedMovies($movies['results']);
 
         return $movies;
     }
