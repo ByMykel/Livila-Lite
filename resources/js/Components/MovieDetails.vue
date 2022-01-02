@@ -101,7 +101,17 @@ export default defineComponent({
             return this.getSelectedMovie[data];
         },
         handleLike() {
-            axios.post(route("movies.like", this.getSelectedMovie.id));
+            // axios.post(route("movies.like", this.getSelectedMovie.id));
+
+            this.$inertia.post(
+                route("movies.like", this.getSelectedMovie.id),
+                {},
+                {
+                    preserveState: true,
+                    preserveScroll: true,
+                    resetOnSuccess: false,
+                }
+            );
 
             this.selectMovie({
                 ...this.getSelectedMovie,
@@ -109,7 +119,17 @@ export default defineComponent({
             });
         },
         handleWatch() {
-            axios.post(route("movies.watch", this.getSelectedMovie.id));
+            // axios.post(route("movies.watch", this.getSelectedMovie.id));
+
+            this.$inertia.post(
+                route("movies.watch", this.getSelectedMovie.id),
+                {},
+                {
+                    preserveState: true,
+                    preserveScroll: true,
+                    resetOnSuccess: false,
+                }
+            );
 
             this.selectMovie({
                 ...this.getSelectedMovie,
