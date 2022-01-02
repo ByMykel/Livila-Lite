@@ -73,7 +73,7 @@ export default defineComponent({
         },
         backdrop() {
             if (this.getSelectedMovie?.backdrop_path == null) {
-                return "";
+                return "images/placeholder.jpeg";
             }
 
             return (
