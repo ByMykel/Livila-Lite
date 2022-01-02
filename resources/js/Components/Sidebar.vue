@@ -43,11 +43,11 @@ export default defineComponent({
                     route: "liked",
                     icon: "heart",
                 },
-                // {
-                //     name: "Watched",
-                //     route: "watched",
-                //     icon: "eye",
-                // },
+                {
+                    name: "Watched",
+                    route: "watched",
+                    icon: "eye",
+                },
             ],
         };
     },
