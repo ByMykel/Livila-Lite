@@ -2,84 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Movie;
+use App\Services\TMDB\TmdbMoviesInformationApi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class WatchController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    protected $tmdbApi;
+    protected $movie;
+
+    public function __construct(TmdbMoviesInformationApi $tmdbApi, Movie $movie)
+    {
+        $this->tmdbApi = $tmdbApi;
+        $this->movie = $movie;
+    }
+
     public function index()
     {
-        return Inertia::render('Watched');
+        $moviesIds = $this->movie->getWatchedMoviesIds(Auth::user());
+
+        $ids = array_map(function ($movie) {
+            return $movie->movie_id;
+        }, $moviesIds->items());
+
+        $movies = $this->tmdbApi->getMoviesById($ids);
+        $movies = $this->movie->markLikedMovies($movies);
+        $movies = $this->movie->markWatchedMovies($movies);
+
+        return Inertia::render('Watched', [
+            'movies' => $movies
+        ]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function movies()
     {
-        //
+        $moviesIds = $this->movie->getWatchedMoviesIds(Auth::user());
+
+        $ids = array_map(function ($movie) {
+            return $movie->movie_id;
+        }, $moviesIds->items());
+
+        $movies = $this->tmdbApi->getMoviesById($ids);
+        $movies = $this->movie->markLikedMovies($movies);
+        $movies = $this->movie->markWatchedMovies($movies);
+
+        return $movies;
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function handleWatch($id)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $this->movie->handleWatch($id);
     }
 }

@@ -21,7 +21,11 @@ use Inertia\Inertia;
 Route::get('/', [MovieController::class, 'index'])->name('movies');
 
 Route::prefix('movies')->group(function () {
-    Route::post('/{id}/like', [LikeController::class, 'handleLike'])->name('movies.like')->middleware(['auth:sanctum', 'verified']);
+    Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+        Route::post('/{id}/like', [LikeController::class, 'handleLike'])->name('movies.like');
+        Route::post('/{id}/watch', [WatchController::class, 'handleWatch'])->name('movies.watch');
+    });
+
     Route::get('/page/{page}', [MovieController::class, 'movies'])->name('movies.page');
 });
 
@@ -32,5 +36,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::get('/page', [LikeController::class, 'movies'])->name('liked.page');
     });
 
-    // Route::get('/watched', [WatchController::class, 'index'])->name('watched');
+    Route::prefix('watched')->group(function () {
+        Route::get('/', [WatchController::class, 'index'])->name('watched');
+        Route::get('/page', [WatchController::class, 'movies'])->name('watched.page');
+    });
 });
