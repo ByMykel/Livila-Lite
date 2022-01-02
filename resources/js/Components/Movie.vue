@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col" :class="{ 'opacity-20': movie.watched }">
+    <div class="flex flex-col" :class="{ 'opacity-20': markAsWatched }">
         <div
             tabindex="0"
             class="
@@ -22,7 +22,7 @@
         >
             <transition name="heart-icon">
                 <div
-                    v-show="movie.liked"
+                    v-show="markAsLiked"
                     class="
                         absolute
                         flex
@@ -48,7 +48,7 @@
                         leave-to-class="opacity-0"
                     >
                         <HeroIconsOutline
-                            v-show="movie.liked"
+                            v-show="markAsLiked"
                             name="heart"
                             class="w-3 h-3 sm:w-4 sm:h-4 text-white mb-0.5"
                         />
@@ -109,6 +109,12 @@ export default defineComponent({
             }
 
             return new Date(this.movie.release_date).getFullYear();
+        },
+        markAsLiked() {
+            return !route().current("liked") && this.movie.liked;
+        },
+        markAsWatched() {
+            return !route().current("watched") && this.movie.watched;
         },
     },
 
