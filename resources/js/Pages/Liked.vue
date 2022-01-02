@@ -5,7 +5,7 @@
             class="flex-1 w-full overflow-auto bg-black-400"
         >
             <div
-                class="grid w-full gap-1 p-4 px-5 mx-auto movies-grid-small md:movies-grid max-w-7xl"
+                class="grid w-full gap-1 p-4 px-5 mx-auto movies-grid-small md:movies-grid max-w-[120rem]"
             >
                 <Movie
                     v-for="movie in movies_data"
