@@ -93,7 +93,7 @@ export default defineComponent({
     },
 
     methods: {
-        ...mapActions("movie", ["selectMovie", "hideMovie"]),
+        ...mapActions("movie", ["selectMovie", "hideMovie", "updateData"]),
         getMovieData(data) {
             if (this.getSelectedMovie === null) {
                 return "";
@@ -117,6 +117,8 @@ export default defineComponent({
                 ...this.getSelectedMovie,
                 liked: !this.getSelectedMovie.liked,
             });
+
+            this.updateData({ route: 'liked', movie_id: this.getSelectedMovie.id });
         },
         handleWatch() {
             // axios.post(route("movies.watch", this.getSelectedMovie.id));
@@ -135,6 +137,8 @@ export default defineComponent({
                 ...this.getSelectedMovie,
                 watched: !this.getSelectedMovie.watched,
             });
+
+            this.updateData({ route: 'watched', movie_id: this.getSelectedMovie.id });
         },
     },
 });
