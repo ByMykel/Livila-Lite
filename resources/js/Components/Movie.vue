@@ -119,7 +119,7 @@ export default defineComponent({
                 return "images/placeholder.jpeg";
             }
 
-            return "https://image.tmdb.org/t/p/original" + movie.backdrop_path;
+            return "https://image.tmdb.org/t/p/w1280" + movie.backdrop_path;
         },
         isSelected(movie) {
             if (this.getSelectedMovie?.id === undefined) {
