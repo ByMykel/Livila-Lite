@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col" :class="{ 'opacity-20': markAsWatched }">
+    <div class="flex flex-col duration-200" :class="{ 'opacity-20': markAsWatched }">
         <div
             tabindex="0"
             class="
@@ -134,9 +134,9 @@ export default defineComponent({
 
             return movie.id === this.getSelectedMovie?.id;
         },
-        handleLike() {
+        handleWatch() {
             axios
-                .post(route("movies.like", this.movie.id))
+                .post(route("movies.watch", this.movie.id))
                 .catch(function (error) {
                     if (error.response) {
                         if (error.response.status === 401) {
@@ -145,7 +145,7 @@ export default defineComponent({
                     }
                 });
 
-            this.movie.liked = !this.movie.liked;
+            this.movie.watched = !this.movie.watched;
         },
         handleClick() {
             this.clicks++;
@@ -158,7 +158,7 @@ export default defineComponent({
             } else {
                 clearTimeout(this.timer);
                 this.clicks = 0;
-                this.handleLike();
+                this.handleWatch();
 
                 if (this.movie.id === this.getSelectedMovie?.id) {
                     this.selectMovie({ ...this.movie });
