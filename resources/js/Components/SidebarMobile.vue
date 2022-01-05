@@ -44,6 +44,28 @@
                             </a>
                         </div>
                     </div>
+                    <div v-if="$page.props.user === null" class="w-full p-2">
+                        <a
+                            :href="route('login')"
+                            class="block py-2 text-gray-300 rounded-md hover:text-green-600 focus:text-green-600 hover:bg-black-400 focus:bg-black-400"
+                        >
+                            <div class="flex justify-center">
+                                <HeroIconsOutline class="w-6 h-6" name="lock-open" />
+                            </div>
+                            <div class="flex justify-center">Log In</div>
+                        </a>
+                    </div>
+                    <div v-else class="w-full p-2">
+                        <button
+                            class="block w-full py-2 text-gray-300 rounded-md hover:text-red-600 focus:text-red-600 hover:bg-black-400 focus:bg-black-400"
+                            @click="logout()"
+                        >
+                            <div class="flex justify-center">
+                                <HeroIconsOutline class="w-6 h-6" name="lock-closed" />
+                            </div>
+                            <div class="flex justify-center">Log Out</div>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -63,24 +85,45 @@ export default defineComponent({
     data() {
         return {
             showSidebar: false,
-            links: [
+        };
+    },
+    computed: {
+        links() {
+            let links = [
                 {
                     name: "Movies",
                     route: "movies",
                     icon: "film",
                 },
-                {
-                    name: "Liked",
-                    route: "liked",
-                    icon: "heart",
-                },
-                {
-                    name: "Watched",
-                    route: "watched",
-                    icon: "eye",
-                },
-            ],
-        };
+            ];
+
+            if (this.$page.props.user !== null) {
+                links.push(
+                    {
+                        name: "Liked",
+                        route: "liked",
+                        icon: "heart",
+                    },
+                    {
+                        name: "Watched",
+                        route: "watched",
+                        icon: "eye",
+                    },
+                    {
+                        name: "Settings",
+                        route: "profile.show",
+                        icon: "cog",
+                    }
+                );
+            }
+
+            return links;
+        },
+    },
+    methods: {
+        logout() {
+            this.$inertia.post(route("logout"));
+        },
     },
 });
 </script>
