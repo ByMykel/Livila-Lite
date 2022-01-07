@@ -23,36 +23,24 @@
         </div>
         <div
             v-if="$page.props.user === null"
-            class="
-                absolute
-                bottom-0
-                flex
-                w-full
-                p-2.5
-                border-t border-black-400
-            "
+            class="absolute bottom-0 w-full p-2 border-t border-black-400"
         >
             <a
                 :href="route('login')"
-                class="flex items-center w-full py-2 text-gray-300 rounded-md hover:text-white focus:text-white hover:bg-black-400 focus:bg-black-400"
+                class="flex items-center justify-center w-full py-2 text-gray-300 rounded-md hover:text-white focus:text-white hover:bg-black-400 focus:bg-black-400"
             >
-                <div class="flex justify-center">
-                    <HeroIconsOutline class="w-5 h-5 mx-2" name="lock-open" />
-                </div>
                 <div class="flex justify-center text-sm">Log In</div>
+            </a>
+            <a
+                :href="route('register')"
+                class="flex items-center justify-center w-full px-2 py-2 text-gray-300 rounded-md hover:text-white focus:text-white hover:bg-black-400 focus:bg-black-400"
+            >
+                <div class="flex justify-center text-sm">Sign Up</div>
             </a>
         </div>
         <div
             v-else
-            class="
-                absolute
-                bottom-0
-                flex
-                w-full
-                p-2.5
-                border-t border-black-450
-                justify-center
-            "
+            class="absolute bottom-0 flex w-full p-2.5 justify-center pb-4"
         >
             <div class="relative">
                 <Dropdown />
