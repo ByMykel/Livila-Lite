@@ -10,7 +10,7 @@
                 aria-haspopup="true"
             >
                 <img
-                    class="rounded-full w-9 h-9"
+                    class="w-8 h-8 rounded-full md:w-9 md:h-9"
                     :src="$page.props.user.profile_photo_url"
                     alt=""
                 />
@@ -27,7 +27,7 @@
         >
             <div
                 v-if="show"
-                class="absolute bottom-0 z-50 w-48 py-1 mt-2 overflow-hidden origin-top-right rounded-md shadow-lg bg-black-300 left-11 ring-1 ring-indigo-500 ring-opacity-30 focus:outline-none"
+                class="absolute right-0 z-50 w-48 py-1 mt-2 overflow-hidden rounded-md shadow-lg md:bottom-0 bg-black-300 md:left-12 ring-1 ring-indigo-500 focus:outline-none"
                 role="menu"
                 aria-orientation="vertical"
                 aria-labelledby="user-menu"
