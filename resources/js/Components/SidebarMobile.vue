@@ -115,11 +115,6 @@ export default defineComponent({
                         name: "Watched",
                         route: "watched",
                         icon: "eye",
-                    },
-                    {
-                        name: "Settings",
-                        route: "profile.show",
-                        icon: "cog",
                     }
                 );
             }
