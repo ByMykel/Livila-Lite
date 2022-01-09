@@ -1,5 +1,8 @@
 <template>
-    <div class="flex flex-col duration-200" :class="{ 'opacity-20': markAsWatched }">
+    <div
+        class="flex flex-col duration-200"
+        :class="{ 'opacity-20': markAsWatched }"
+    >
         <div
             tabindex="0"
             class="
@@ -18,6 +21,7 @@
                 'border-purple-500 focus:border-purple-500': isSelected(movie),
             }"
             @click="handleClick()"
+            @keydown.enter="selectMovie({ ...movie }), showMovie()"
             @keydown.esc="hideMovie()"
         >
             <transition name="heart-icon">
@@ -57,11 +61,11 @@
             </transition>
             <img
                 v-if="skeleton"
-                class="block object-cover h-full rounded-md cursor-pointer bg-black-300 animate-pulse"
+                class="block object-cover h-full rounded-md cursor-pointer  bg-black-300 animate-pulse"
                 src="images/placeholder.jpeg"
             />
             <img
-                class="block object-cover h-full rounded-md cursor-pointer bg-black-300"
+                class="block object-cover h-full rounded-md cursor-pointer  bg-black-300"
                 :class="{ hidden: skeleton }"
                 :src="image(movie)"
                 @load="skeleton = false"
