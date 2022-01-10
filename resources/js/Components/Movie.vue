@@ -61,11 +61,11 @@
             </transition>
             <img
                 v-if="skeleton"
-                class="block object-cover h-full rounded-md cursor-pointer  bg-black-300 animate-pulse"
+                class="block object-cover h-full rounded-md cursor-pointer bg-black-300 animate-pulse"
                 src="images/placeholder.jpeg"
             />
             <img
-                class="block object-cover h-full rounded-md cursor-pointer  bg-black-300"
+                class="block object-cover h-full rounded-md cursor-pointer bg-black-300"
                 :class="{ hidden: skeleton }"
                 :src="image(movie)"
                 @load="skeleton = false"
@@ -106,7 +106,7 @@ export default defineComponent({
     },
 
     computed: {
-        ...mapGetters("movie", ["getSelectedMovie"]),
+        ...mapGetters("movie", ["getSelectedMovie", "isShowing"]),
         releaseDate() {
             if (!this.movie.release_date) {
                 return "UNKNOWN";
@@ -132,6 +132,10 @@ export default defineComponent({
             return "https://image.tmdb.org/t/p/w1280" + movie.backdrop_path;
         },
         isSelected(movie) {
+            if (!this.isShowing) {
+                return false;
+            }
+
             if (this.getSelectedMovie?.id === undefined) {
                 return false;
             }
