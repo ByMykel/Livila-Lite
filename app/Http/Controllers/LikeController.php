@@ -31,7 +31,7 @@ class LikeController extends Controller
         $movies = $this->movie->markLikedMovies($movies);
         $movies = $this->movie->markWatchedMovies($movies);
 
-        return Inertia::render('Liked', [
+        return Inertia::render('Likes', [
             'movies' => $movies
         ]);
     }

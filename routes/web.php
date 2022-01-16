@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\WatchController;
@@ -18,9 +19,12 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [MovieController::class, 'index'])->name('movies');
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/page/{page}', [HomeController::class, 'movies'])->name('home.page');
 
 Route::prefix('movies')->group(function () {
+    Route::get('/', [MovieController::class, 'index'])->name('movies');
+
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::post('/{id}/like', [LikeController::class, 'handleLike'])->name('movies.like');
         Route::post('/{id}/watch', [WatchController::class, 'handleWatch'])->name('movies.watch');
@@ -31,9 +35,9 @@ Route::prefix('movies')->group(function () {
 
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-    Route::prefix('liked')->group(function () {
-        Route::get('/', [LikeController::class, 'index'])->name('liked');
-        Route::get('/page', [LikeController::class, 'movies'])->name('liked.page');
+    Route::prefix('likes')->group(function () {
+        Route::get('/', [LikeController::class, 'index'])->name('likes');
+        Route::get('/page', [LikeController::class, 'movies'])->name('likes.page');
     });
 
     Route::prefix('watched')->group(function () {

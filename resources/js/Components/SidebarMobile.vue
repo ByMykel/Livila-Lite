@@ -3,7 +3,9 @@
         class="z-50 flex items-center justify-between w-full h-12 shadow bg-black-500 md:hidden"
     >
         <div class="flex justify-center ml-5">
-            <img class="w-9" src="/images/logo.svg" />
+            <a :href="route('home')">
+                <img class="w-9" src="/images/logo.svg" />
+            </a>
         </div>
         <div class="flex items-center h-full">
             <div class="mr-2" v-if="$page.props.user === null">
@@ -42,7 +44,9 @@
             >
                 <div class="relative w-full bg-black-500 rounded-b-md">
                     <div class="flex justify-center w-full py-6">
-                        <img class="w-28" src="/images/logo-text.svg" />
+                        <a :href="route('home')">
+                            <img class="w-28" src="/images/logo-text.svg" />
+                        </a>
                     </div>
                     <div class="py-2 space-y-0.5">
                         <div
@@ -107,8 +111,8 @@ export default defineComponent({
             if (this.$page.props.user !== null) {
                 links.push(
                     {
-                        name: "Liked",
-                        route: "liked",
+                        name: "Likes",
+                        route: "likes",
                         icon: "heart",
                     },
                     {

@@ -3,7 +3,9 @@
         class="h-screen space-y-0.5 bg-black-500 w-28 hidden md:block relative"
     >
         <div class="flex justify-center my-6">
-            <img class="w-10" src="/images/logo.svg" />
+            <a :href="route('home')">
+                <img class="w-10" src="/images/logo.svg" />
+            </a>
         </div>
         <div class="w-full px-2" v-for="(link, index) in links" :key="index">
             <a
@@ -72,8 +74,8 @@ export default defineComponent({
             if (this.$page.props.user !== null) {
                 links.push(
                     {
-                        name: "Liked",
-                        route: "liked",
+                        name: "Likes",
+                        route: "likes",
                         icon: "heart",
                     },
                     {

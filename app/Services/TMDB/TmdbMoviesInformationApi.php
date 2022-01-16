@@ -32,6 +32,29 @@ class TmdbMoviesInformationApi
         return $movies ?? [];
     }
 
+    public function getTopRatedMovies($page = 1)
+    {
+        $response = Http::get('https://api.themoviedb.org/3/movie/top_rated', [
+            'api_key' => Config::get('services.tmdb.key'),
+            'page' => $page
+        ]);
+
+        if ($response->ok()) {
+            $movies = $response->json();
+        }
+
+        $response = Http::get('https://api.themoviedb.org/3/movie/top_rated', [
+            'api_key' => Config::get('services.tmdb.key'),
+            'page' => $page * 2
+        ]);
+
+        if ($response->ok()) {
+            $movies['results'] = array_merge($movies['results'], $response->json()['results']);
+        }
+
+        return $movies ?? [];
+    }
+
     public function getMovieById($id)
     {
         $response = Http::get('https://api.themoviedb.org/3/movie/' . $id, [
