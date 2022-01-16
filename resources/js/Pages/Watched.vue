@@ -71,7 +71,7 @@ export default defineComponent({
                 });
             }
 
-            if (newData === "liked") {
+            if (newData === "likes") {
                 this.movies.map((movie) => {
                     if (movie.id == this.getUpdateData.movie_id) {
                         movie.liked = !movie.liked;

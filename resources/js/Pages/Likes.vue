@@ -1,5 +1,5 @@
 <template>
-    <app-layout title="Liked">
+    <app-layout title="Likes">
         <div ref="movies" class="flex-1 w-full overflow-auto bg-black-400">
             <div
                 class="
@@ -71,7 +71,7 @@ export default defineComponent({
                 });
             }
 
-            if (newData === "liked") {
+            if (newData === "likes") {
                 this.movies.map((movie) => {
                     if (movie.id == this.getUpdateData.movie_id) {
                         movie.liked = !movie.liked;
@@ -108,7 +108,7 @@ export default defineComponent({
                 this.loading = true;
 
                 axios
-                    .get(route("liked.page", { page: ++this.page }))
+                    .get(route("likes.page", { page: ++this.page }))
                     .then((response) => {
                         if (!response.data.length) {
                             window.removeEventListener(

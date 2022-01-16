@@ -118,7 +118,7 @@ export default defineComponent({
                 liked: !this.getSelectedMovie.liked,
             });
 
-            this.updateData({ route: 'liked', movie_id: this.getSelectedMovie.id });
+            this.updateData({ route: 'likes', movie_id: this.getSelectedMovie.id });
         },
         handleWatch() {
             // axios.post(route("movies.watch", this.getSelectedMovie.id));

@@ -115,7 +115,7 @@ export default defineComponent({
             return new Date(this.movie.release_date).getFullYear();
         },
         markAsLiked() {
-            return !route().current("liked") && this.movie.liked;
+            return !route().current("likes") && this.movie.liked;
         },
         markAsWatched() {
             return !route().current("watched") && this.movie.watched;
