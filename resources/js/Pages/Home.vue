@@ -5,7 +5,17 @@
             class="flex-1 w-full h-screen overflow-auto bg-black-400"
         >
             <div
-                class="grid w-full gap-1 p-4 px-5 mx-auto movies-grid-small md:movies-grid max-w-[120rem]"
+                class="
+                    grid
+                    w-full
+                    gap-1
+                    p-4
+                    px-5
+                    mx-auto
+                    movies-grid-small
+                    md:movies-grid
+                    max-w-[120rem]
+                "
             >
                 <Movie
                     v-for="movie in movies_data"
@@ -40,12 +50,10 @@ export default defineComponent({
         AppLayout,
         Movie,
     },
-
     props: {
         title: String,
         movies: Object,
     },
-
     data() {
         return {
             movies_data: this.movies,
@@ -53,11 +61,9 @@ export default defineComponent({
             loading: false,
         };
     },
-
     computed: {
         ...mapGetters("movie", ["getSelectedMovie", "isShowing"]),
     },
-
     watch: {
         movies() {
             this.movies_data.map((movie) => {
@@ -67,41 +73,62 @@ export default defineComponent({
             });
         },
     },
+    async mounted() {
+        window.addEventListener("scroll", this.scrollManage, true);
 
+        const { movies } = this.$refs;
+
+        while (movies.scrollHeight === movies.clientHeight) {
+            this.loading = true;
+
+            let data = await this.getMoreMovies();
+
+            if (!data.length) {
+                window.removeEventListener("scroll", this.scrollManage, true);
+                this.loading = false;
+                return;
+            }
+
+            this.loading = false;
+            this.movies_data.push(...data);
+        }
+    },
     methods: {
-        getMoreMovies() {
+        async scrollManage() {
             const { movies } = this.$refs;
 
             let bottomOfWindow =
-                movies.scrollHeight < movies.scrollTop + window.innerHeight + 200;
+                movies.scrollHeight <
+                movies.scrollTop + window.innerHeight + 500;
 
             if (bottomOfWindow) {
                 if (this.loading) return;
 
                 this.loading = true;
 
-                axios
-                    .get(route("home.page", ++this.page))
-                    .then((response) => {
-                        if (!response.data.results.length) {
-                            window.removeEventListener(
-                                "scroll",
-                                this.getMoreMovies,
-                                true
-                            );
-                            this.loading = false;
-                            return;
-                        }
+                let data = await this.getMoreMovies();
 
-                        this.loading = false;
-                        this.movies_data.push(...response.data.results);
-                    });
+                if (!data.length) {
+                    window.removeEventListener(
+                        "scroll",
+                        this.scrollManage,
+                        true
+                    );
+                    this.loading = false;
+                    return;
+                }
+
+                this.loading = false;
+                this.movies_data.push(...data);
             }
         },
-    },
-
-    mounted() {
-        window.addEventListener("scroll", this.getMoreMovies, true);
+        async getMoreMovies() {
+            return await axios
+                .get(route("home.page", ++this.page))
+                .then((response) => {
+                    return response.data.results;
+                });
+        },
     },
 });
 </script>
