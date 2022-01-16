@@ -78,7 +78,7 @@ export default defineComponent({
 
         const { movies } = this.$refs;
 
-        while (movies.scrollHeight === movies.clientHeight) {
+        while (movies.scrollHeight <= movies.clientHeight) {
             this.loading = true;
 
             let data = await this.getMoreMovies();
