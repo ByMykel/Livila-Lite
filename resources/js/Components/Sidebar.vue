@@ -31,11 +31,11 @@
                 :href="route('login')"
                 class="flex items-center justify-center w-full py-2 text-gray-300 rounded-md hover:text-white focus:text-white hover:bg-black-400 focus:bg-black-400"
             >
-                <div class="flex justify-center text-sm">Log In</div>
+                <div class="flex justify-center text-sm">Sign In</div>
             </a>
             <a
                 :href="route('register')"
-                class="flex items-center justify-center w-full px-2 py-2 text-gray-300 rounded-md hover:text-white focus:text-white hover:bg-black-400 focus:bg-black-400"
+                class="flex items-center justify-center w-full px-2 py-2 text-gray-300 rounded-md hover:text-white focus:text-white hover:bg-black-400 focus:bg-black-400 bg-black-400"
             >
                 <div class="flex justify-center text-sm">Sign Up</div>
             </a>

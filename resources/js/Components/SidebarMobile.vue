@@ -19,7 +19,7 @@
             <div class="mr-2" v-if="$page.props.user === null">
                 <a
                     :href="route('register')"
-                    class="flex items-center w-full px-2 py-2 text-gray-300 rounded-md hover:text-white focus:text-white hover:bg-black-400 focus:bg-black-400"
+                    class="flex items-center w-full px-2 py-2 text-gray-300 rounded-md hover:text-white focus:text-white hover:bg-black-400 focus:bg-black-400 bg-black-400"
                 >
                     <div class="flex justify-center text-sm">Sign Up</div>
                 </a>
