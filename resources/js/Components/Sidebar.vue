@@ -25,7 +25,7 @@
         </div>
         <div
             v-if="$page.props.user === null"
-            class="absolute bottom-0 w-full p-2 border-t border-black-400"
+            class="absolute bottom-0 w-full p-2 space-y-1 border-t border-black-400"
         >
             <a
                 :href="route('login')"
