@@ -11,14 +11,14 @@
                 rounded-md
                 p-0.5
                 border-transparent border-2
-                focus:border-purple-300
-                hover:border-purple-300
+                focus:border-indigo-300
+                hover:border-indigo-300
                 outline-none
                 h-full
                 cursor-pointer
             "
             :class="{
-                'border-purple-500 focus:border-purple-500': isSelected(movie),
+                'border-indigo-500 focus:border-indigo-500': isSelected(movie),
             }"
             @click="handleClick()"
             @keydown.enter="selectMovie({ ...movie }), showMovie()"
