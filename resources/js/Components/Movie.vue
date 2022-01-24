@@ -21,7 +21,7 @@
                 'border-indigo-500 focus:border-indigo-500': isSelected(movie),
             }"
             @click="handleClick()"
-            @keydown.enter="selectMovie({ ...movie }), showMovie()"
+            @keydown.enter="selectMovie(movie.id), showMovie()"
             @keydown.esc="hideMovie()"
         >
             <transition name="heart-icon">
@@ -159,7 +159,7 @@ export default defineComponent({
             this.clicks++;
             if (this.clicks === 1) {
                 this.timer = setTimeout(() => {
-                    this.selectMovie({ ...this.movie });
+                    this.selectMovie(this.movie.id);
                     this.showMovie();
                     this.clicks = 0;
                 }, 300);
@@ -169,7 +169,7 @@ export default defineComponent({
                 this.handleWatch();
 
                 if (this.movie.id === this.getSelectedMovie?.id) {
-                    this.selectMovie({ ...this.movie });
+                    this.selectMovie(this.movie.id);
                 }
             }
         },

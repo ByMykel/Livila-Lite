@@ -12,7 +12,17 @@
                 />
             </button>
         </div>
-        <img class="block object-cover rounded-md" :src="backdrop" alt="" />
+        <img
+            v-if="skeleton"
+            class="block rounded-md bg-black-300 animate-pulse"
+            src="images/placeholder.jpeg"
+        />
+        <img
+            class="block object-cover rounded-md"
+            :class="{ hidden: skeleton }"
+            :src="backdrop"
+            @load="skeleton = false"
+        />
         <div class="grid grid-cols-10 py-3">
             <p class="col-span-8 text-lg">{{ getMovieData("title") }}</p>
             <div class="flex items-center justify-end col-span-1">
@@ -66,6 +76,12 @@ export default defineComponent({
         HeroIconsOutline,
     },
 
+    data() {
+        return {
+            skeleton: true
+        }
+    },
+
     computed: {
         ...mapGetters("movie", ["getSelectedMovie"]),
         informations() {
@@ -78,6 +94,10 @@ export default defineComponent({
                     title: "Vote average",
                     data: this.getMovieData("vote_average"),
                 },
+                {
+                    title: "Runtime",
+                    data: this.movieRuntime,
+                },
             ];
         },
         backdrop() {
@@ -89,6 +109,19 @@ export default defineComponent({
                 "https://image.tmdb.org/t/p/original" +
                 this.getSelectedMovie?.backdrop_path
             );
+        },
+        movieRuntime() {
+            let runtime = this.getMovieData("runtime");
+
+            if (runtime < 60) {
+                return `${runtime}min`;
+            }
+
+            if (runtime % 60 === 0) {
+                return `${runtime / 60}h`;
+            }
+
+            return `${parseInt(runtime / 60)}h ${runtime % 60}min`;
         },
     },
 
@@ -113,12 +146,12 @@ export default defineComponent({
                 }
             );
 
-            this.selectMovie({
-                ...this.getSelectedMovie,
-                liked: !this.getSelectedMovie.liked,
-            });
+            this.selectMovie(this.getSelectedMovie.id);
 
-            this.updateData({ route: 'likes', movie_id: this.getSelectedMovie.id });
+            this.updateData({
+                route: "likes",
+                movie_id: this.getSelectedMovie.id,
+            });
         },
         handleWatch() {
             // axios.post(route("movies.watch", this.getSelectedMovie.id));
@@ -133,12 +166,12 @@ export default defineComponent({
                 }
             );
 
-            this.selectMovie({
-                ...this.getSelectedMovie,
-                watched: !this.getSelectedMovie.watched,
-            });
+            this.selectMovie(this.getSelectedMovie.id);
 
-            this.updateData({ route: 'watched', movie_id: this.getSelectedMovie.id });
+            this.updateData({
+                route: "watched",
+                movie_id: this.getSelectedMovie.id,
+            });
         },
     },
 });
