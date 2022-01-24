@@ -33,8 +33,8 @@ class MovieController extends Controller
     {
         $movie = $this->tmdbApi->getMovie($id);
 
-        $movie = $this->movie->markLikedMovies($movie);
-        $movie = $this->movie->markWatchedMovies($movie);
+        $movie['liked'] = $this->movie->isLiked($id);
+        $movie['watched'] = $this->movie->isWatched($id);
 
         return $movie;
     }

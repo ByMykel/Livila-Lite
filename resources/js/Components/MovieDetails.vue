@@ -14,11 +14,11 @@
         </div>
         <img
             v-if="skeleton"
-            class="block rounded-md bg-black-300 animate-pulse"
+            class="block w-full rounded-md bg-black-300 animate-pulse"
             src="images/placeholder.jpeg"
         />
         <img
-            class="block object-cover rounded-md"
+            class="block object-cover w-full rounded-md"
             :class="{ hidden: skeleton }"
             :src="backdrop"
             @load="skeleton = false"
@@ -63,6 +63,19 @@
             </div>
             <p class="py-2">{{ getMovieData("overview") }}</p>
         </div>
+        <div class="py-3 text-base text-gray-400">
+            <div class="py-2 text-lg text-white border-b border-black-300">
+                <span>Production companies</span>
+            </div>
+            <div
+                v-for="(company, index) in getMovieData('production_companies')"
+                :key="index"
+                class="flex justify-between py-2 border-b border-black-300"
+            >
+                <span>{{ company.name }}</span>
+                <span class="text-white">{{ company.origin_country }}</span>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -78,8 +91,8 @@ export default defineComponent({
 
     data() {
         return {
-            skeleton: true
-        }
+            skeleton: true,
+        };
     },
 
     computed: {
