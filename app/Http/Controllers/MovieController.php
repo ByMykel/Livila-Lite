@@ -29,6 +29,16 @@ class MovieController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $movie = $this->tmdbApi->getMovie($id);
+
+        $movie = $this->movie->markLikedMovies($movie);
+        $movie = $this->movie->markWatchedMovies($movie);
+
+        return $movie;
+    }
+
     public function movies($page)
     {
         $movies = $this->tmdbApi->getMovies($page);

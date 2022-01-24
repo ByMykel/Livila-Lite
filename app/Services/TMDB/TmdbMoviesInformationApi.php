@@ -7,6 +7,20 @@ use Illuminate\Support\Facades\Http;
 
 class TmdbMoviesInformationApi
 {
+    public function getMovie($id)
+    {
+        $response = Http::get('https://api.themoviedb.org/3/movie/' . $id, [
+            'api_key' => Config::get('services.tmdb.key'),
+            'include_adult' => false,
+        ]);
+
+        if ($response->ok()) {
+            $movie = $response->json();
+        }
+
+        return $movie ?? [];
+    }
+
     public function getMovies($page = 1)
     {
         $response = Http::get('https://api.themoviedb.org/3/discover/movie', [

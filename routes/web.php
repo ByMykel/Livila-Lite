@@ -24,6 +24,7 @@ Route::get('/page/{page}', [HomeController::class, 'movies'])->name('home.page')
 
 Route::prefix('movies')->group(function () {
     Route::get('/', [MovieController::class, 'index'])->name('movies');
+    Route::get('/{id}', [MovieController::class, 'show'])->name('movies.show');
 
     Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::post('/{id}/like', [LikeController::class, 'handleLike'])->name('movies.like');
