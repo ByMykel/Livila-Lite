@@ -125,6 +125,10 @@ export default defineComponent({
         },
         movieRuntime() {
             let runtime = this.getMovieData("runtime");
+            
+            if (!runtime) {
+                return "";
+            }
 
             if (runtime < 60) {
                 return `${runtime}min`;
